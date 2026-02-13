@@ -1,4 +1,5 @@
 import React from 'react';
+import Counter from './Counter';
 
 interface AppProps {
   message?: string;
@@ -11,7 +12,10 @@ interface AppProps {
 // Reactの関数コンポーネントは、Reactが提供する型を使わないと、propsの型チェックができない
 const App: React.FunctionComponent<AppProps> = ({ message }) => { // message: string
 // const App = ({ message }: AppProps) => { // この指定だと、AppPropsにmessage以外を指定してもエラーにならない
-  return <div>{message}</div>; // JSXという特殊なフォーマットのJavaScript。トランスパイルされてHTMLになり、ブラウザに表示される
+  // return <div>{message}</div>; // JSXという特殊なフォーマットのJavaScript。トランスパイルされてHTMLになり、ブラウザに表示される
+  return (
+    <div><Counter /></div>
+  );
 };
 
 App.defaultProps = {
