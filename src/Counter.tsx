@@ -19,7 +19,7 @@ const Counter: React.FC<{}> = () => {
   const [value, setValue] = useState<number>(initialValue);
 
   const increment = () => {
-    // setValue(value + 1); // ssetValueに値を直接渡す場合
+    // setValue(value + 1); // setValueに値を直接渡す場合
     setValue((prev) => prev + 1)
   };
 
@@ -40,6 +40,6 @@ const Counter: React.FC<{}> = () => {
 export default Counter;
 
 // useStateはTSだと型引数を指定できる
-// stateとして指定する値に型を指定しておくと、useStateが返すデータと関数が型制約を持つものとなる
+// stateとして指定する値に型を指定しておくと、useStateが返すデータ（value）と関数（setValue）が同じ型制約を持つものとなる
 // この結果、バグを生じにくくできる
 // https://legacy.reactjs.org/docs/hooks-state.html
