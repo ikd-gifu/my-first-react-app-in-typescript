@@ -44,6 +44,7 @@ const Counter: React.FC<{}> = () => {
   };
 
   // const renderTimes: React.MutableRefObject<number>
+  // useRefは{ current: 初期値 } というJSオブジェクトを返すので、Reactによる再レンダリングが起きない
   const renderTimes = useRef<number>(0);
   useEffect(() => {
     // 第一引数のコールバック関数。画面が更新されるたびに実行される関数
@@ -52,12 +53,33 @@ const Counter: React.FC<{}> = () => {
     renderTimes.current = renderTimes.current +1;
   });
 
+  const ref = useRef<HTMLInputElement>(null!); // 型定義前：const ref: React.MutableRefObject<null>
+  // non-null assertion operator（!）を使うことで、ref.currentがnullでないことをTypeScriptに伝えることができる
+  // focusInputは、レンダリング後にクリックして初めて呼ばれるので、nullでないことが保証される
+  // 定義後：const ref: React.RefObject<HTMLInputElement>
+  // ref を先に定義するのは、React がレンダリング時にその ref に DOM 要素を代入できるようにするため
+  const focusInput =() => {
+    // const current = ref.current; // ref.currentでinput要素（実際のDOM要素）を参照できる。一旦代入して退避する
+    // if (current != null) current.focus(); // nullで初期化しているため
+    // ref.current?.focus(); // オプショナルチェイニング
+    ref.current.focus();
+  };
+
   return (
     <div>
       <div>value: {value}</div>
       <button onClick={increment}>+1</button>
       <button onClick={decrement}>-1 </button>
       <div>This component has re-rendered {renderTimes.current} times!</div>
+      {/* interface ClassAttributes<T> extends Attributes {
+        ref?: LegacyRef<T>;
+      } */}
+      {/* type LegacyRef<T> = string | Ref<T>; // 文字列のrefは非推奨なので、Ref<T>のみを考える */}
+      {/* type Ref<T> = RefCallback<T> | RefObject<T> | null; // Ref型オブジェクトRefObject<T>を作る */}
+      {/* Reactに「このinput要素がDOMに追加されたら、ref.currentにその要素を格納してください」と指示 */}
+      <input ref={ref} type="text"></input>
+      {/* (property) React.ClassAttributes<HTMLInputElement>.ref?: React.LegacyRef<HTMLInputElement> | undefined */}
+      <button onClick={focusInput}>Click Me!</button>
     </div>
   );
 };
