@@ -58,6 +58,7 @@ const Counter: React.FC<{}> = () => {
   // focusInputは、レンダリング後にクリックして初めて呼ばれるので、nullでないことが保証される
   // 定義後：const ref: React.RefObject<HTMLInputElement>
   // ref を先に定義するのは、React がレンダリング時にその ref に DOM 要素を代入できるようにするため
+  // https://ja.legacy.reactjs.org/docs/hooks-reference.html#useref
   const focusInput =() => {
     // const current = ref.current; // ref.currentでinput要素（実際のDOM要素）を参照できる。一旦代入して退避する
     // if (current != null) current.focus(); // nullで初期化しているため
