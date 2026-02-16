@@ -1,5 +1,6 @@
 import React from 'react';
-import Counter from './Counter';
+// import Counter from './Counter';
+import CounterWithReducer from './CounterWithReducer';
 
 interface AppProps {
   message?: string;
@@ -14,7 +15,8 @@ const App: React.FunctionComponent<AppProps> = ({ message }) => { // message: st
 // const App = ({ message }: AppProps) => { // この指定だと、AppPropsにmessage以外を指定してもエラーにならない
   // return <div>{message}</div>; // JSXという特殊なフォーマットのJavaScript。トランスパイルされてHTMLになり、ブラウザに表示される
   return (
-    <div><Counter /></div>
+    // <div><Counter /></div>
+    <div><CounterWithReducer /></div>
   );
 };
 
